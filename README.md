@@ -1,1 +1,1 @@
-# ms-sgc
+# Servicio de Gestión de Créditos
