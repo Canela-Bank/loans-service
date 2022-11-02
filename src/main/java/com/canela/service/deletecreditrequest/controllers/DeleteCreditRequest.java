@@ -25,7 +25,7 @@ public class DeleteCreditRequest {
 
         URL url = null;
         try {
-            url = new URL("http://localhost:8080/graphql?query=mutation{deleteCreditRequest(crId:\"" + cRequestId + "\")}");
+            url = new URL("http://localhost:4000/graphql?query=mutation{deleteCreditRequest(crId:\"" + cRequestId + "\")}");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
             int response = conn.getResponseCode();
