@@ -16,6 +16,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,15 +35,14 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @RequestMapping(value = "/api/loans")
 public class GetLoansControllers {
 	
-	 @GetMapping(value = "/getUserLoans" )
-	 @CrossOrigin("*")
-	    public ResponseEntity<String> getUserLoans(@RequestBody loansRequest request) {
+	 @GetMapping(value = "/getUserLoans/{document}/{typeDocument}")
+	    public ResponseEntity<String> getUserLoans(@PathVariable String document, @PathVariable String typeDocument) {
 		 
 		 try {
 				// GraphQL info 
 				 String url = "http://localhost:3001/graphql";
 				 String operation = "getLoansByUser"; //INSERT OPERATION QUERY HERE
-				 String query = "query{getLoansByUser(user_document:\""+request.userDocument+"\",user_document_type:"+request.typeDocument+"){\n"
+				 String query = "query{getLoansByUser(user_document:\""+document+"\",user_document_type:"+typeDocument+"){\n"
 				 		+ "  id\n"
 				 		+ "  interest_rate\n"
 				 		+ "  min_payment\n"
