@@ -1,10 +1,10 @@
-package com.canela.service.deletecreditrequest;
+package com.canela.service.loanmgmt;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DeleteCreditRequestApplicationTests {
+class LoanMgmtAppicationTests {
 
     @Test
     void contextLoads() {
