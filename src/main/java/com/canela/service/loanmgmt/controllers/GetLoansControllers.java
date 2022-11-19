@@ -41,8 +41,18 @@ public class GetLoansControllers {
 		 try {
 				// GraphQL info 
 				 String url = "http://localhost:3001/graphql";
-				 String operation = ""; //INSERT OPERATION QUERY HERE
-				 String query = ""; //INSERT QUERY HERE
+				 String operation = "getLoansByUser"; //INSERT OPERATION QUERY HERE
+				 String query = "query{getLoansByUser(user_document:\""+request.userDocument+"\",user_document_type:"+request.typeDocument+"){\n"
+				 		+ "  id\n"
+				 		+ "  interest_rate\n"
+				 		+ "  min_payment\n"
+				 		+ "  balance\n"
+				 		+ "  payment_date\n"
+				 		+ "  debt\n"
+				 		+ "  user_id\n"
+				 		+ "  user_document_type\n"
+				 		+ "  \n"
+				 		+ "}}"; //INSERT QUERY HERE
 				
 				 // GraphQL request 
 					 CloseableHttpClient client = HttpClientBuilder.create().build();
