@@ -1,0 +1,7 @@
+server:
+  port: 9002
+
+application:
+  name: Service Credit Management 
+  description: API created to manage loans 
+
