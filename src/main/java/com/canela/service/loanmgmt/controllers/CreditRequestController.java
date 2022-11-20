@@ -84,7 +84,7 @@ public class CreditRequestController {
 
         URL url = null;
         try {
-            url = new URL("http://10.1.0.0:3001/graphql?query=mutation{deleteCreditRequest(crId:\"" + cRequestId + "\")}");
+            url = new URL("http://10.1.0.0:3001/graphql?query=mutation%20%7B%0A%20%20deleteLoan(id%3A%20\"" + cRequestId + "\")%20%7B%0A%20%20%20%20message%0A%20%20%7D%0A%7D");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
             int response = conn.getResponseCode();
