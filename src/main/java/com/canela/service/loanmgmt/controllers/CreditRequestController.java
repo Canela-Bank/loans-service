@@ -45,7 +45,7 @@ public class CreditRequestController {
                 Double balance = (Double) loan.get("balance");
                 String payment_date = (String) loan.get("payment_date");
                 Double debt = (Double) loan.get("debt");
-                String user_id = (String) loan.get("id");
+                String user_id = (String) loan.get("user_id");
                 Integer user_document_type = (Integer) loan.get("user_document_type");
                 try{
                     url = new URL("http://10.1.0.0:3001/graphql?query=mutation%7B%0A%20%20createLoan(id%3A%22"+id+"%22%2Cinterest_rate%3A"+interest_rate+"%2C%20min_payment%3A"+min_payment+"%2Cbalance%3A"+balance+"%2Cpayment_date%3A%22"+payment_date+"%22%2Cdebt%3A"+debt+"%2Cuser_id%3A%22"+user_id+"%22%2Cuser_document_type%3A"+user_document_type+")%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D");
