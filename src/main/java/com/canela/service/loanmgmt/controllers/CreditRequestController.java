@@ -82,7 +82,7 @@ public class CreditRequestController {
     @DeleteMapping("/request")
     public ResponseEntity<String> delete (@RequestBody String requestBody) throws JsonProcessingException {
         Map<String, Object> values = new ObjectMapper().readValue(requestBody, HashMap.class);
-        String cRequestId = (String) values.get("cRequestId");
+        String cRequestId = values.get("cRequestId").toString();
 
         URL url = null;
         try {
