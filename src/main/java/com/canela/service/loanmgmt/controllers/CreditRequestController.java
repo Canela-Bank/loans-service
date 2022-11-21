@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,17 @@ import java.util.Random;
 @RequestMapping("/api/loans")
 public class CreditRequestController {
     StringBuilder result = null;
+    @Value("${integrators.data.ip}")
+    private String dataIp;
+
+    @Value("${integrators.data.port}")
+    private String dataPort;
+
+    @Value("${integrators.providers.ip}")
+    private String providersIp;
+
+    @Value("${integrators.providers.port}")
+    private String providersPort;
 
     @PostMapping("/create")
     public ResponseEntity<String> requestCR(@RequestBody String request) throws JSONException {
@@ -33,7 +45,7 @@ public class CreditRequestController {
             JSONObject user = (JSONObject) clientObject.get("User");
             String type = (String) user.get("type");
             int document = (int) user.get("document");
-            url = new URL ("http://localhost:3000/api/prov/centralderiesgo/getReports/"+ type +"/"+ document +"");
+            url = new URL ("http://"+providersIp+":"+providersPort+"/api/prov/centralderiesgo/getReports/"+ type +"/"+ document +"");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             int responseCode = con.getResponseCode();
@@ -50,7 +62,7 @@ public class CreditRequestController {
                 String user_id = (String) loan.get("user_id");
                 Integer user_document_type = Integer.valueOf(loan.get("user_document_type").toString());
                 try{
-                    url = new URL("http://localhost:3002/graphql?query=mutation%7B%0A%20%20createLoan(id%3A%22"+id+"%22%2Cinterest_rate%3A"+interest_rate+"%2C%20min_payment%3A"+min_payment+"%2Cbalance%3A"+balance+"%2Cpayment_date%3A%22"+payment_date+"%22%2Cdebt%3A"+debt+"%2Cuser_id%3A%22"+user_id+"%22%2Cuser_document_type%3A"+user_document_type+")%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D");
+                    url = new URL("http://"+dataIp+":"+dataPort+"/graphql?query=mutation%7B%0A%20%20createLoan(id%3A%22"+id+"%22%2Cinterest_rate%3A"+interest_rate+"%2C%20min_payment%3A"+min_payment+"%2Cbalance%3A"+balance+"%2Cpayment_date%3A%22"+payment_date+"%22%2Cdebt%3A"+debt+"%2Cuser_id%3A%22"+user_id+"%22%2Cuser_document_type%3A"+user_document_type+")%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     int response = conn.getResponseCode();
@@ -86,7 +98,7 @@ public class CreditRequestController {
 
         URL url = null;
         try {
-            url = new URL("http://localhost:3002/graphql?query=mutation%20%7B%0A%20%20deleteLoan(id%3A%20\"" + cRequestId + "\")%20%7B%0A%20%20%20%20message%0A%20%20%7D%0A%7D");
+            url = new URL("http://"+dataIp+":"+dataPort+"/graphql?query=mutation%20%7B%0A%20%20deleteLoan(id%3A%20\"" + cRequestId + "\")%20%7B%0A%20%20%20%20message%0A%20%20%7D%0A%7D");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
             int response = conn.getResponseCode();
