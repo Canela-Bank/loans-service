@@ -33,7 +33,7 @@ public class CreditRequestController {
             JSONObject user = (JSONObject) clientObject.get("User");
             String type = (String) user.get("type");
             int document = (int) user.get("document");
-            url = new URL ("http://10.2.0.0:3000/api/prov/centralderiesgo/getReports/"+ type +"/"+ document +"");
+            url = new URL ("http://localhost:3000/api/prov/centralderiesgo/getReports/"+ type +"/"+ document +"");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             int responseCode = con.getResponseCode();
@@ -50,7 +50,7 @@ public class CreditRequestController {
                 String user_id = (String) loan.get("user_id");
                 Integer user_document_type = Integer.valueOf(loan.get("user_document_type").toString());
                 try{
-                    url = new URL("http://10.1.0.0:3002/graphql?query=mutation%7B%0A%20%20createLoan(id%3A%22"+id+"%22%2Cinterest_rate%3A"+interest_rate+"%2C%20min_payment%3A"+min_payment+"%2Cbalance%3A"+balance+"%2Cpayment_date%3A%22"+payment_date+"%22%2Cdebt%3A"+debt+"%2Cuser_id%3A%22"+user_id+"%22%2Cuser_document_type%3A"+user_document_type+")%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D");
+                    url = new URL("http://localhost:3002/graphql?query=mutation%7B%0A%20%20createLoan(id%3A%22"+id+"%22%2Cinterest_rate%3A"+interest_rate+"%2C%20min_payment%3A"+min_payment+"%2Cbalance%3A"+balance+"%2Cpayment_date%3A%22"+payment_date+"%22%2Cdebt%3A"+debt+"%2Cuser_id%3A%22"+user_id+"%22%2Cuser_document_type%3A"+user_document_type+")%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("POST");
                     int response = conn.getResponseCode();
