@@ -38,7 +38,7 @@ public class GetLoansControllers {
 		 
 		 try {
 				// GraphQL info 
-				 String url = "http://localhost:3001/graphql";
+				 String url = "http://localhost:3002/graphql";
 				 String operation = "getLoansByUser"; //INSERT OPERATION QUERY HERE
 				 String query = "query{getLoansByUser(user_document:\""+document+"\",user_document_type:"+typeDocument+"){\n"
 				 		+ "  id\n"
