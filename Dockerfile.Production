@@ -6,6 +6,8 @@ RUN mvn -f /home/app/pom.xml clean package
 
 # Java 17
 FROM openjdk:17-oraclelinux8
-COPY --from=build home/app/target/api-gateway-0.0.1-SNAPSHOT.jar /home/app/app.jar
+COPY --from=build home/app/target/loan-mgmt-0.0.1-SNAPSHOT.jar /home/app/app.jar
+ARG env
+ENV environment=$env
 EXPOSE 9002
-ENTRYPOINT ["java","-jar","/home/app/app.jar"]
+ENTRYPOINT java -jar -Dspring.profiles.active=$env /home/app/app.jar
